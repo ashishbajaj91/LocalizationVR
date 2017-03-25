@@ -9,6 +9,7 @@ from time import strftime
 import urlparse
 import json
 import shutil
+from datetime import datetime
 
 #cgitb.enable()
 
@@ -99,20 +100,26 @@ def ReadJsonFile(directory,filename):
 		content = json.load(data_file)
 	return content
 	
-def MarkRead(directory, filename):
+def getCurrentTimeAsString():
+	return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+	
+def MarkRead(directory, filename, timenow):
 	reddirectory = CreateUserFolder()
 	source = os.path.join(directory,filename)
-	target = os.path.join(reddirectory,filename)
+	fname, ext = os.path.splitext(filename)
+	targetfilename = "".join([fname, "_", timenow, ext]);
+	target = os.path.join(reddirectory,targetfilename)
 	shutil.move(source, target)
 	return 
 
 def ReadActionFiles(directory):
 	files = getfilelist(directory)
-	data = dict();
-	count = 0;
+	data = dict()
+	count = 0
+	timenow = getCurrentTimeAsString()
 	for file in files:
-		content = ReadJsonFile(directory, file);
-		MarkRead(directory, file)
+		content = ReadJsonFile(directory, file)
+		MarkRead(directory, file, timenow)
 		data[count] = content
 		count += 1
 	return data
