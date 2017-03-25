@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Maze Controller</title>
+		<style>
+			body 
+			{
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+		<!-- Source jquery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>		
+	</head>
+	<body>
+	<div ><a>Username:</a> <a id="username" contenteditable="true">test</a></div>	
+	<div>Last Key Update Status</div>
+	<div id="key"></div>	
+	
+	<script>		
+		$(document).keydown(function CheckForKeyDown(e)
+		{
+			if (e.keyCode >= 37 || e.keyCode <= 38)
+			{
+				//Up Key
+				if(e.keyCode == 38)
+				{
+					UpdateLink('up');
+				}
+				//Down key
+				else if (e.keyCode == 40)
+				{
+					UpdateLink('down');
+				}
+				//Left key
+				else if (e.keyCode == 37)
+				{
+					UpdateLink('left');
+				}
+				//Right key
+				else if(e.keyCode == 39)
+				{
+					UpdateLink('right');
+				}
+			}
+		}							
+		);
+		
+		function UpdateLink(key)
+		{
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("key").innerHTML = key + " Key press successful";
+				}
+			};
+			baselink = "http://www.contrib.andrew.cmu.edu/~ashishb/cgi-bin/add.cgi?user="
+			user = document.getElementById("username").innerHTML
+			action = "&Action="
+			url = baselink.concat(user, action, key)
+			console.log(url);
+			xhttp.open("GET", url, true);
+			xhttp.send();
+		}
+		
+		</script>
+	</body>
+</html>

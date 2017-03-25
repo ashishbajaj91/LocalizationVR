@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Read Actions</title>
+		<style>
+			body 
+			{
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+		<!-- Source jquery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>		
+	</head>
+	<body>
+	<script>		
+		var _GET = 
+					(
+						function() 
+						{
+							var _get = {};
+							var re = /[?&]([^=&]+)(=?)([^&]*)/g;
+							while (m = re.exec(location.search))
+								_get[decodeURIComponent(m[1])] = (m[2] == '=' ? decodeURIComponent(m[3]) : true);
+							return _get;
+						}
+					)
+					();
+		extractjsondata();
+		function changebody(jsondata)
+		{
+			document.body.innerHTML = jsondata
+		}
+		
+		function httpGet(theUrl)
+		{
+			console.log(theUrl);
+			$.get(theUrl, 
+				function(data, status)	
+				{
+					var el = document.createElement( 'html' );
+					el.innerHTML = data;
+					var jsondata = el.getElementsByTagName('*').jsondata.innerHTML;
+					if (jsondata.length > 4)
+					{	
+						changebody(jsondata);
+					}
+				}
+			
+			);
+			return;
+		}
+	
+		function extractjsondata()
+		{
+			httpGet('http://www.contrib.andrew.cmu.edu/~ashishb/cgi-bin/read.cgi?user=' + _GET['user']);
+		}
+		</script>
+	</body>
+</html>
