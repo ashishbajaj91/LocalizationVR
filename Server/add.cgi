@@ -7,6 +7,7 @@ from time import strftime
 import urlparse
 import json
 import shutil
+from datetime import datetime
 
 data_dir = os.path.join('..','userdata')
 backup_dir = os.path.join('..','backup')
@@ -90,8 +91,8 @@ def GetAction():
 	return value
 	
 def getCurrentTimeAsString():
-	return strftime("%Y_%m_%d_%H_%M_%S", gmtime())
-
+	return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+	
 def GetData(Action, time_now):
 	data = {}
 	data['Action'] = Action
