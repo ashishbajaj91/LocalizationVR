@@ -116,7 +116,7 @@ def CreateAndSaveJson(Action, directory):
 	SaveJson(data, filename, directory)
 	return
 	
-def UpdateActionToFile(directory, backup_directory):
+def UpdateActionToFile(directory):
 	Action = GetAction()
 	if (Action != None):
 		CreateAndSaveJson(Action, directory)
