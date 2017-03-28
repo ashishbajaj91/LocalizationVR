@@ -10,7 +10,6 @@ import shutil
 from datetime import datetime
 
 data_dir = os.path.join('..','userdata')
-backup_dir = os.path.join('..','backup')
 
 def getcurrenturl():
 	url = os.environ['HTTP_HOST']
@@ -69,10 +68,8 @@ def extractvalueforkeyfromurl(url,key):
 def CreateUserFolder():
 	user = getusername()
 	directory = os.path.join(data_dir, user)
-	backup_directory = os.path.join(backup_dir, user)
 	create_user_directory(directory)
-	create_user_directory(backup_directory)
-	return directory, backup_directory
+	return directory
 	
 def CheckIfRequestIsGet():
 	isGet=False
@@ -103,37 +100,32 @@ def getActionFilename(time_now):
 	filename = 'Action' + '_' + time_now + '.json'
 	return filename
 	
-def SaveJson(data, filename, directory, backup_directory):
+def SaveJson(data, filename, directory):
 	filepath = os.path.join(directory, filename)
-	backup_file = os.path.join(backup_directory, filename)
 	
 	with open(filepath, 'w') as outfile:
 		json.dump(data, outfile)
 	outfile.close()
-	
-	with open(backup_file, 'w') as backup_outfile:
-		json.dump(data, backup_outfile)
-	backup_outfile.close()
-	
+		
 	return
 	
-def CreateAndSaveJson(Action, directory, backup_directory):
+def CreateAndSaveJson(Action, directory):
 	time_now =getCurrentTimeAsString()
 	data = GetData(Action, time_now)
 	filename = getActionFilename(time_now)
-	SaveJson(data, filename, directory, backup_directory)
+	SaveJson(data, filename, directory)
 	return
 	
 def UpdateActionToFile(directory, backup_directory):
 	Action = GetAction()
 	if (Action != None):
-		CreateAndSaveJson(Action, directory, backup_directory)
+		CreateAndSaveJson(Action, directory)
 	return
 
 def main():
 	cgi.test()
-	directory, backup_directory = CreateUserFolder()
-	UpdateActionToFile(directory, backup_directory)
+	directory = CreateUserFolder()
+	UpdateActionToFile(directory)
 	return
 	
 main()
