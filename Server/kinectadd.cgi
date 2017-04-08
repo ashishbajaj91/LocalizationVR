@@ -9,7 +9,7 @@ import json
 import shutil
 from datetime import datetime
 
-data_dir = os.path.join('..','userdata')
+data_dir = os.path.join('..','kinectdata')
 
 def getcurrenturl():
 	url = os.environ['HTTP_HOST']
