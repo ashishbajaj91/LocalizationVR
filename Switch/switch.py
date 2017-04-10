@@ -12,8 +12,7 @@ def geturl(user="test"):
 	
 def buttonpress():
 	url = geturl()
-	content = SendGetRequest(url)
-	print content
+	SendGetRequest(url)
 	return
 		
 def SetupGPIO():
