@@ -13,6 +13,8 @@ kinectread_dir = os.path.join('..','kinectread')
 buttondata_dir = os.path.join('..','buttonpress')
 buttonread_dir = os.path.join('..','buttonpressread')
 
+leapdata_dir = os.path.join('..','leapdata')
+leapread_dir = os.path.join('..','leapread')
 
 def removefile(file):
 	os.remove(file)
@@ -62,6 +64,13 @@ def main():
 	cleandirectory(buttonread_dir)
 	print "<br>buttonread data deleted"
 
+	print "<br>Cleaning the leap data"
+	cleandirectory(leapdata_dir)
+	print "<br>leapdata deleted"
+
+	print "<br>Cleaning the leapread data"
+	cleandirectory(leapread_dir)
+	print "<br>leapread data deleted"
 	return
 	
 main()

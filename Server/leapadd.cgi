@@ -9,7 +9,7 @@ import json
 import shutil
 from datetime import datetime
 
-data_dir = os.path.join('..','kinectdata')
+data_dir = os.path.join('..','leapdata')
 
 def getcurrenturl():
 	url = os.environ['HTTP_HOST']
@@ -82,30 +82,25 @@ def GetXZValues():
 	if(IsWebUser()==True):
 		url = getcurrenturl()
 		if(CheckIfRequestIsGet() == True):
-			actionvalues = GetAction(url)
-			factorvalues = GetFactor(url)
-			if (actionvalues != None and len(actionvalues) > 0 and factorvalues != None and len(factorvalues) > 0):
-				value = [actionvalues[0], factorvalues[0]]
+			gesturevalues = GetGesture(url)
+			if (gesturevalues != None and len(gesturevalues) > 0):
+				value = [gesturevalues[0]]
 	return value
 	
-def GetAction(url):
-	return extractvalueforkeyfromurl(url,'Action')
-
-def GetFactor(url):
-	return extractvalueforkeyfromurl(url,'factor')
+def GetGesture(url):
+	return extractvalueforkeyfromurl(url,'gesture')
 	
 def getCurrentTimeAsString():
 	return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 	
 def GetData(Coordinate, time_now):
 	data = {}
-	data['Action'] = Coordinate[0]
-	data['Factor'] = Coordinate[1]
+	data['Gesture'] = Coordinate[0]
 	data['Time'] = time_now
 	return data
 	
 def getActionFilename(time_now):
-	filename = 'Kinect' + '_' + time_now + '.json'
+	filename = 'Leap' + '_' + time_now + '.json'
 	return filename
 	
 def SaveJson(data, filename, directory):
