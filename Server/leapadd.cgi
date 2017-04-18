@@ -83,8 +83,9 @@ def GetXZValues():
 		url = getcurrenturl()
 		if(CheckIfRequestIsGet() == True):
 			gesturevalues = GetGesture(url)
+			anglevalues = GetGesture(url)
 			if (gesturevalues != None and len(gesturevalues) > 0):
-				value = [gesturevalues[0]]
+				value = [gesturevalues[0], anglevalues[0]]
 	return value
 	
 def GetGesture(url):
@@ -96,6 +97,7 @@ def getCurrentTimeAsString():
 def GetData(Coordinate, time_now):
 	data = {}
 	data['Gesture'] = Coordinate[0]
+	data['Angle'] = Coordinate[1]
 	data['Time'] = time_now
 	return data
 	
