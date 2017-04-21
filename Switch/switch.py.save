@@ -26,18 +26,17 @@ def SetupGPIO():
 def CheckbuttonPress():
 	try:
 		while(True):
-			print len(ser.readline())
-			if (len(ser.readline()) != 0):
+			if(GPIO.input(18) == True):
+				print "Pressed"
 				buttonpress()
-				print ser.readline()
-				print type(ser.readline())
-			time.sleep(0.001)
+			time.sleep(2000
 	except:
 		print "Cleaning Up"
 		GPIO.cleanup()
 	return
 	
 def main():
+	SetupGPIO()
 	CheckbuttonPress()
 	return
 	
