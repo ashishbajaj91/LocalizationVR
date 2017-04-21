@@ -82,25 +82,25 @@ def GetXZValues():
 	if(IsWebUser()==True):
 		url = getcurrenturl()
 		if(CheckIfRequestIsGet() == True):
-			actionvalues = GetAction(url)
-			factorvalues = GetFactor(url)
+			actionvalues = GetDX(url)
+			factorvalues = GetDZ(url)
 			if (actionvalues != None and len(actionvalues) > 0 and factorvalues != None and len(factorvalues) > 0):
 				value = [actionvalues[0], factorvalues[0]]
 	return value
 	
-def GetAction(url):
-	return extractvalueforkeyfromurl(url,'Action')
+def GetDX(url):
+	return extractvalueforkeyfromurl(url,'dx')
 
-def GetFactor(url):
-	return extractvalueforkeyfromurl(url,'factor')
+def GetDZ(url):
+	return extractvalueforkeyfromurl(url,'dz')
 	
 def getCurrentTimeAsString():
 	return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 	
 def GetData(Coordinate, time_now):
 	data = {}
-	data['Action'] = Coordinate[0]
-	data['Factor'] = Coordinate[1]
+	data['dx'] = Coordinate[0]
+	data['dz'] = Coordinate[1]
 	data['Time'] = time_now
 	return data
 	
