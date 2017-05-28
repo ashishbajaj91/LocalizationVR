@@ -2,7 +2,7 @@ import win32api
 import time
 from urllib.request import urlopen
  
-user = 'ashishb'
+user = 'test'
 
 def SendGetRequest(urltoopen):
 	content = urlopen(urltoopen).read()
@@ -32,10 +32,11 @@ cenX = int(1364/2);
 cenY = int(766/2);
           
 while True:
+    scale = 0.1
     x, y = win32api.GetCursorPos()
     if(x!=cenX or y != cenY):
-        dx = x-cenX
-        dy = y-cenY
+        dx = scale*(x-cenX)
+        dy = scale*(y-cenY)
         kinectMotion(dx, dy)
         print (dx,dy)
     
